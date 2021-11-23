@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     // Update is called once per frame
     void Update()
     {
-        if (true)//(IsPlaying)
+        if (IsPlaying)
         {
             SetStatistics(m_Score, m_CountDown - Time.deltaTime);
 
@@ -187,24 +187,19 @@ public class GameManager : MonoBehaviour, IEventHandler
                 Victory();
             }*/
 
-            
+            print("time : " + Time.fixedTime);
+            if ((deltatime - Time.fixedTime) <= 0)
+            {
+                //GameObject instance = new GameObject("Walker" + m_CountDownStartValue);
+                GameObject clone = Instantiate(SplineWalker[0], new Vector3(SplineWalker[0].transform.position.x, SplineWalker[0].transform.position.y, SplineWalker[0].transform.position.z), Quaternion.identity);
+                clone.name = "Walker" + deltatime;
+                clone.SetActive(true);
+                deltatime = 0.5f + Time.fixedTime;
+            }
 
         }
         
         checkInputs();
-    }
-
-    void FixedUpdate()
-    {
-        print("time : " + Time.fixedTime);
-        if (m_CountDownStartValue != 0 && (deltatime - Time.fixedTime) <= 0)
-        {
-            //GameObject instance = new GameObject("Walker" + m_CountDownStartValue);
-            GameObject clone =  Instantiate(SplineWalker[0], new Vector3(SplineWalker[0].transform.position.x, SplineWalker[0].transform.position.y, SplineWalker[0].transform.position.z) , Quaternion.identity);
-            clone.name = "Walker" + deltatime;
-            clone.SetActive(true);
-            deltatime = 0.5f + Time.fixedTime;
-        }
     }
 
     void checkInputs()
