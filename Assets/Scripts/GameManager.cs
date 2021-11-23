@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour, IEventHandler
 
     public AudioSource gameOverSound;
     public AudioSource victorySound;
+    public BezierSpline spline;
 
     private GAMESTATE m_State;
 
@@ -25,12 +26,13 @@ public class GameManager : MonoBehaviour, IEventHandler
 
 
     int m_Score;
+    float deltatime;
 
     [SerializeField] float m_CountDownStartValue;
     float m_CountDown;
 
-    [SerializeField] GameObject[] asteroids;
-    GameObject[] m_Asteroids;
+    [SerializeField] GameObject[] SplineWalker;
+    GameObject m_Walker;
 
     public void SubscribeEvents()
     {
@@ -163,39 +165,46 @@ public class GameManager : MonoBehaviour, IEventHandler
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        m_State = GAMESTATE.menu;
+        m_State = GAMESTATE.play;
         EventManager.Instance.Raise(new GameMenuEvent());
         if (PlayerPrefs.HasKey("highScore")) //récupération du highscore d'une ancienne partie
         {
             highScore = PlayerPrefs.GetInt("highScore");
         }
-
+        deltatime = 5;
         yield break;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (IsPlaying)
+        if (true)//(IsPlaying)
         {
             SetStatistics(m_Score, m_CountDown - Time.deltaTime);
 
-            if (m_CountDown < 0)
+            /*if (m_CountDown < 0)
             {
                 Victory();
-            }
+            }*/
 
-            if (asteroids != null)
-            {
-                m_Asteroids = asteroids;
-                for (int i = 0; i < m_Asteroids.Length; i++)
-                {
-                    m_Asteroids[i].transform.position = transform.position - transform.forward;
-                }
-            }
+            
 
         }
+        
         checkInputs();
+    }
+
+    void FixedUpdate()
+    {
+        print("time : " + Time.fixedTime);
+        if (m_CountDownStartValue != 0 && (deltatime - Time.fixedTime) <= 0)
+        {
+            //GameObject instance = new GameObject("Walker" + m_CountDownStartValue);
+            GameObject clone =  Instantiate(SplineWalker[0], new Vector3(SplineWalker[0].transform.position.x, SplineWalker[0].transform.position.y, SplineWalker[0].transform.position.z) , Quaternion.identity);
+            clone.name = "Walker" + deltatime;
+            clone.SetActive(true);
+            deltatime = 0.5f + Time.fixedTime;
+        }
     }
 
     void checkInputs()

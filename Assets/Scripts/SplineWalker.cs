@@ -11,12 +11,19 @@ public class SplineWalker : MonoBehaviour
 
     public bool lookForward;
 
+    private void start()
+    {
+
+        Collider col = this.GetComponent<Collider>();
+    }
+
     private void Update()
     {
         progress += Time.deltaTime / duration;
-        if (progress > 1f)
+        if (progress >= 1f)
         {
-            progress = 1f;
+            Destroy(gameObject);
+            //progress = 1f;
         }
         Vector3 position = spline.GetPoint(progress);
         transform.localPosition = position;
