@@ -18,8 +18,8 @@ public class MoveForward : MonoBehaviour
         //Fetch the Rigidbody component you attach from your GameObject
         target = Camera.main.ScreenToWorldPoint(new Vector3(
                                                             Input.mousePosition.x,
-                                                            Input.mousePosition.z, 
-                                                            gameObject.transform.position.y));
+                                                            Input.mousePosition.y,
+                                                            0.5f)); //gameObject.transform.position.y
         m_Rigidbody = GetComponent<Rigidbody>();
         //Set the speed of the GameObject
         m_Speed = 10.0f;
