@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     public AudioSource gameOverSound;
     public AudioSource victorySound;
     public BezierSpline spline;
-
+    public List<GameObject> m_Walker = new List<GameObject>();
     private GAMESTATE m_State;
 
     public bool IsPlaying { get { return m_State == GAMESTATE.play; } }
@@ -25,14 +25,13 @@ public class GameManager : MonoBehaviour, IEventHandler
     private int highScore = 0;
 
 
-    int m_Score;
+    int m_Score, count = 0;
     float deltatime;
 
     [SerializeField] float m_CountDownStartValue;
     float m_CountDown;
 
     [SerializeField] GameObject[] SplineWalker;
-    GameObject m_Walker;
 
     public void SubscribeEvents()
     {
@@ -165,7 +164,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        m_State = GAMESTATE.play;
+        m_State = GAMESTATE.menu;
         EventManager.Instance.Raise(new GameMenuEvent());
         if (PlayerPrefs.HasKey("highScore")) //récupération du highscore d'une ancienne partie
         {
@@ -187,12 +186,15 @@ public class GameManager : MonoBehaviour, IEventHandler
                 Victory();
             }*/
 
-            print("time : " + Time.fixedTime);
+            
             if ((deltatime - Time.fixedTime) <= 0)
             {
                 //GameObject instance = new GameObject("Walker" + m_CountDownStartValue);
                 GameObject clone = Instantiate(SplineWalker[0], new Vector3(SplineWalker[0].transform.position.x, SplineWalker[0].transform.position.y, SplineWalker[0].transform.position.z), Quaternion.identity);
-                clone.name = "Walker" + deltatime;
+                clone.name = "Walker" + count++;
+                clone.transform.position = new Vector3(clone.transform.position.x, clone.transform.position.y + 0.5f, clone.transform.position.z);
+                m_Walker.Add(clone);
+                print("nbr GO : " + m_Walker.Count);
                 clone.SetActive(true);
                 deltatime = 0.5f + Time.fixedTime;
             }

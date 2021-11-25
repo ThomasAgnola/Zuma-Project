@@ -45,9 +45,8 @@ public class SplineWalker : MonoBehaviour
 
     public bool lookForward;
 
-    private void start()
+    private void Start()
     {
-
         Collider col = this.GetComponent<Collider>();
     }
 
@@ -58,6 +57,9 @@ public class SplineWalker : MonoBehaviour
             progress += Time.deltaTime / duration;
             if (progress >= 1f)
             {
+                print("count in walker " + gameObject.name + " : " + GameManager.Instance.m_Walker.Contains(gameObject));
+
+                GameManager.Instance.m_Walker.Remove(gameObject);
                 Destroy(gameObject);
                 //progress = 1f;
             }
