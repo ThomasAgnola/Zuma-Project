@@ -7,6 +7,7 @@ public class MouseLook : MonoBehaviour
 {
 
 	public GameObject prefab;
+  
 	public void SubscribeEvents()
 	{
 		EventManager.Instance.AddListener<GamePlayEvent>(GamePlay);
