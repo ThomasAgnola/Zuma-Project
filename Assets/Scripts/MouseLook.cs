@@ -5,6 +5,9 @@ using SDD.Events;
 
 public class MouseLook : MonoBehaviour
 {
+
+	public GameObject prefab;
+  
 	public void SubscribeEvents()
 	{
 		EventManager.Instance.AddListener<GamePlayEvent>(GamePlay);
@@ -59,9 +62,8 @@ public class MouseLook : MonoBehaviour
 		{
 			try
 			{
-				GameObject Walker = GameManager.Instance.m_Walker[GameManager.Instance.m_Walker.Count - 1];
-				GameObject clone = Instantiate(Walker, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0)));
-		Debug.Log("roation y de Frog : " + transform.rotation.eulerAngles.y);
+				GameObject clone = Instantiate(prefab, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0)));
+				Debug.Log("roation y de Frog : " + transform.rotation.eulerAngles.y);
 				clone.name = "Walker" + GameManager.Instance.count++;
 				Destroy(clone.GetComponent<SplineWalker>());
 				clone.AddComponent<MoveForward>();
