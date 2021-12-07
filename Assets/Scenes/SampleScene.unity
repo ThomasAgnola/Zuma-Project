@@ -648,6 +648,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1606895858493283044, guid: 2eaccd15562e6ad419b9df6b90050abd,
+        type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: e65443fb31cf9e84ca0cf6f4e593e589, type: 3}
+    - target: {fileID: 1606895858579469460, guid: 2eaccd15562e6ad419b9df6b90050abd,
+        type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: e65443fb31cf9e84ca0cf6f4e593e589, type: 3}
+    - target: {fileID: 1606895858676286212, guid: 2eaccd15562e6ad419b9df6b90050abd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1606895858958931307, guid: 2eaccd15562e6ad419b9df6b90050abd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -667,6 +682,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: PlayButtonHasBeenClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 1606895859073040632, guid: 2eaccd15562e6ad419b9df6b90050abd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1606895859160216893, guid: 2eaccd15562e6ad419b9df6b90050abd,
         type: 3}
@@ -698,6 +718,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: MainMenuButtonHasBeenClicked
       objectReference: {fileID: 0}
+    - target: {fileID: 1606895859630657422, guid: 2eaccd15562e6ad419b9df6b90050abd,
+        type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: e65443fb31cf9e84ca0cf6f4e593e589, type: 3}
     - target: {fileID: 1606895859823154415, guid: 2eaccd15562e6ad419b9df6b90050abd,
         type: 3}
       propertyPath: m_IsActive
@@ -853,6 +878,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: EscapeButtonClicked
       objectReference: {fileID: 0}
+    - target: {fileID: 1606895860187063514, guid: 2eaccd15562e6ad419b9df6b90050abd,
+        type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: e65443fb31cf9e84ca0cf6f4e593e589, type: 3}
     - target: {fileID: 1606895860476746032, guid: 2eaccd15562e6ad419b9df6b90050abd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -862,6 +892,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: MainMenuButtonHasBeenClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 1606895860499433392, guid: 2eaccd15562e6ad419b9df6b90050abd,
+        type: 3}
+      propertyPath: m_Text
+      value: "Game developped by : \n- Thomas Agnola\n- Alexandre Mouzouni"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2eaccd15562e6ad419b9df6b90050abd, type: 3}
