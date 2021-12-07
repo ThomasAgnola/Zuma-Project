@@ -13,7 +13,9 @@ public class GameManager : MonoBehaviour, IEventHandler
 
     public AudioSource gameOverSound;
     public AudioSource victorySound;
-
+    public BezierSpline spline;
+    public int count = 0;
+    public List<GameObject> m_Walker = new List<GameObject>();
     private GAMESTATE m_State;
 
     public bool IsPlaying { get { return m_State == GAMESTATE.play; } }
@@ -25,12 +27,12 @@ public class GameManager : MonoBehaviour, IEventHandler
 
 
     int m_Score;
+    float deltatime;
 
     [SerializeField] float m_CountDownStartValue;
     float m_CountDown;
 
-    [SerializeField] GameObject[] asteroids;
-    GameObject[] m_Asteroids;
+    [SerializeField] GameObject[] SplineWalker;
 
     public void SubscribeEvents()
     {
@@ -169,7 +171,7 @@ public class GameManager : MonoBehaviour, IEventHandler
         {
             highScore = PlayerPrefs.GetInt("highScore");
         }
-
+        deltatime = 5;
         yield break;
     }
 
@@ -180,21 +182,25 @@ public class GameManager : MonoBehaviour, IEventHandler
         {
             SetStatistics(m_Score, m_CountDown - Time.deltaTime);
 
-            if (m_CountDown < 0)
+            /*if (m_CountDown < 0)
             {
                 Victory();
-            }
+            }*/
 
-            if (asteroids != null)
+            
+            if ((deltatime - Time.fixedTime) <= 0)
             {
-                m_Asteroids = asteroids;
-                for (int i = 0; i < m_Asteroids.Length; i++)
-                {
-                    m_Asteroids[i].transform.position = transform.position - transform.forward;
-                }
+                //GameObject instance = new GameObject("Walker" + m_CountDownStartValue);
+                GameObject clone = Instantiate(SplineWalker[0], new Vector3(SplineWalker[0].transform.position.x, SplineWalker[0].transform.position.y, SplineWalker[0].transform.position.z), Quaternion.identity);
+                clone.name = "Walker" + count++;
+                m_Walker.Add(clone);
+                print("nbr GO : " + m_Walker.Count);
+                clone.SetActive(true);
+                deltatime = 0.5f + Time.fixedTime;
             }
 
         }
+        
         checkInputs();
     }
 
