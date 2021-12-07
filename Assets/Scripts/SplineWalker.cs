@@ -45,14 +45,24 @@ public class SplineWalker : MonoBehaviour
 
     public bool lookForward;
 
+    bool ScriptFound = false;
+
     private void Start()
     {
-        Collider col = this.GetComponent<Collider>();
+        try
+        {
+            spline = GameObject.Find("Spline").GetComponent<BezierSpline>();
+            ScriptFound = true;
+        }
+        catch
+        {
+            Debug.Log("Pas de Script utilisable !!");
+        }
     }
 
     private void Update()
     {
-        if(GameManager.Instance.IsPlaying == true)
+        if(GameManager.Instance.IsPlaying == true && ScriptFound)
         {
             progress += Time.deltaTime / duration;
             if (progress >= 1f)
