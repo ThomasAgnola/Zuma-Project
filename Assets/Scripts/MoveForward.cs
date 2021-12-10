@@ -86,4 +86,14 @@ public class MoveForward : MonoBehaviour
 			}
 		}		
 	}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Walker")
+        {
+			this.gameObject.GetComponent<SplineWalker>().enabled = true;
+			this.gameObject.GetComponent<SplineWalker>().progress = collision.gameObject.GetComponent<SplineWalker>().progress + 0.001f;
+			this.gameObject.GetComponent<MoveForward>().enabled = false;
+		}
+    }
 }
