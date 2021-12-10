@@ -198,8 +198,9 @@ GameObject:
   - component: {fileID: 2213021910517139559}
   - component: {fileID: 2213021910517139558}
   - component: {fileID: 2213021910517139557}
-  - component: {fileID: 2213021910517139556}
   - component: {fileID: 2213021910517139561}
+  - component: {fileID: 2213021910517139556}
+  - component: {fileID: 9173112595959362732}
   m_Layer: 0
   m_Name: Walker
   m_TagString: Walker
@@ -283,21 +284,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2213021910517139556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2213021910517139555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a3e446e7b5adc04dbce432b71e9369d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spline: {fileID: 0}
-  duration: 5
-  lookForward: 1
 --- !u!54 &2213021910517139561
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -314,3 +300,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2213021910517139556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2213021910517139555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a3e446e7b5adc04dbce432b71e9369d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spline: {fileID: 0}
+  duration: 5
+  progress: 0
+  lookForward: 1
+--- !u!114 &9173112595959362732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2213021910517139555}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce133a43cfb679d4085329193097bf1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Speed: 2
+  countdown: 10

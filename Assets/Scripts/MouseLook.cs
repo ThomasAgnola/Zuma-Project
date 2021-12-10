@@ -65,8 +65,10 @@ public class MouseLook : MonoBehaviour
 				GameObject clone = Instantiate(prefab, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0)));
 				Debug.Log("roation y de Frog : " + transform.rotation.eulerAngles.y);
 				clone.name = "Walker" + GameManager.Instance.count++;
-				Destroy(clone.GetComponent<SplineWalker>());
-				clone.AddComponent<MoveForward>();
+				clone.GetComponent<SplineWalker>().enabled = false;
+				clone.GetComponent<MoveForward>().enabled = true;
+				//Destroy(clone.GetComponent<SplineWalker>());
+				//clone.AddComponent<MoveForward>();
 				GameManager.Instance.m_Walker.Add(clone);
 				clone.SetActive(true);
 			}
