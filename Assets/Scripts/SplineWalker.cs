@@ -39,6 +39,10 @@ public class SplineWalker : MonoBehaviour
 
     public BezierSpline spline;
 
+    public string color;
+
+    public int index;
+
     public float duration;
 
     public float progress;
@@ -67,9 +71,9 @@ public class SplineWalker : MonoBehaviour
             progress += Time.deltaTime / duration;
             if (progress >= 1f)
             {
-                print("count in walker " + gameObject.name + " : " + GameManager.Instance.m_Walker.Contains(gameObject));
+                //print("count in walker " + gameObject.name + " : " + GameManager.Instance.m_Walker.Contains(gameObject));
 
-                GameManager.Instance.m_Walker.Remove(gameObject);
+                GameManager.Instance.m_Walker.Remove(new Balls(color, index, gameObject));
                 Destroy(gameObject);
                 //progress = 1f;
             }

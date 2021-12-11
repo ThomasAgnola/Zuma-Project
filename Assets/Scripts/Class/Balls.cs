@@ -4,13 +4,15 @@ using System;
 
 public class Balls : IComparable<Balls>
 {
-    public string name;
+    public string color;
     public int index;
+    public GameObject go;
 
-    public Balls(string newName, int newindex)
+    public Balls(string newcolor, int newindex, GameObject newgo)
     {
-        name = newName;
+        color = newcolor;
         index = newindex;
+        go = newgo;
     }
 
     //This method is required by the IComparable
@@ -24,5 +26,15 @@ public class Balls : IComparable<Balls>
 
         //Return the difference in power.
         return index - other.index;
+    }
+
+    public int GetIndex(Balls ball)
+    {
+        return ball.index;
+    }
+
+    public string GetColor(Balls ball)
+    {
+        return ball.color;
     }
 }

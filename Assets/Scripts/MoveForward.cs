@@ -43,6 +43,8 @@ public class MoveForward : MonoBehaviour
 	Rigidbody m_Rigidbody;
 	public float m_Speed = 2f;
 	public float countdown = 10;
+	public string color;
+	public int index;
 	float angleBetween = 0.0f;
 	Vector3 target;
 	bool debug_printed = false;
@@ -65,7 +67,7 @@ public class MoveForward : MonoBehaviour
 		{
 			if (countdown <= 0)
 			{
-				GameManager.Instance.m_Walker.Remove(gameObject);
+				GameManager.Instance.m_Walker.Remove(new Balls(color, index, gameObject));
 				Destroy(gameObject);
 			}
 			else
