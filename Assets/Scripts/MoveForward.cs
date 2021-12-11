@@ -73,7 +73,7 @@ public class MoveForward : MonoBehaviour
 			else
 			{
 				countdown = countdown - Time.deltaTime;
-				transform.Translate(0, 0, m_Speed * Time.deltaTime);
+				transform.Translate(0, 0, m_Speed * 4 * Time.deltaTime);
 				//m_Rigidbody.velocity = transform.forward * m_Speed;
 				//transform.position = transform.position + Vector3.Lerp(transform.position,transform.forward,m_Speed);
 				//Vector3 targetDir = target - transform.position;

@@ -82,7 +82,7 @@ public class MouseLook : MonoBehaviour
 				//clone.AddComponent<MoveForward>();
 				
 				GameManager.Instance.m_Walker.Add(new Balls(color, index, clone));
-				Debug.Log("Color : " + GameManager.Instance.m_Walker[index].color);
+				Debug.Log("Color : " + GameManager.Instance.m_Walker[index].color + " for index : " + color_index);
 				clone.SetActive(true);
 			}
 			catch
