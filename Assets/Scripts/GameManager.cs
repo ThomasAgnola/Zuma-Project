@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     public AudioSource victorySound;
     public BezierSpline spline;
     public int count = 0;
-    public List<GameObject> m_Walker = new List<GameObject>();
+    public List<Balls> m_Walker = new List<Balls>();
     private GAMESTATE m_State;
 
     public bool IsPlaying { get { return m_State == GAMESTATE.play; } }
@@ -190,11 +190,14 @@ public class GameManager : MonoBehaviour, IEventHandler
             
             if ((deltatime - Time.fixedTime) <= 0)
             {
+                int color_index = (int)Random.Range(1, 3);
                 //GameObject instance = new GameObject("Walker" + m_CountDownStartValue);
                 GameObject clone = Instantiate(SplineWalker[0], new Vector3(SplineWalker[0].transform.position.x, SplineWalker[0].transform.position.y, SplineWalker[0].transform.position.z), Quaternion.identity);
                 clone.name = "Walker" + count++;
-                m_Walker.Add(clone);
-                print("nbr GO : " + m_Walker.Count);
+                if (color_index == 1) m_Walker.Add(new Balls("red", count, clone));
+                if (color_index == 2) m_Walker.Add(new Balls("green", count, clone));
+                if (color_index == 3) m_Walker.Add(new Balls("blue", count, clone));
+                //print("nbr GO : " + m_Walker.Count);
                 clone.SetActive(true);
                 deltatime = 0.5f + Time.fixedTime;
             }
