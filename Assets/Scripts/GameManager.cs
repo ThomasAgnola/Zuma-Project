@@ -194,9 +194,10 @@ public class GameManager : MonoBehaviour, IEventHandler
                 //GameObject instance = new GameObject("Walker" + m_CountDownStartValue);
                 GameObject clone = Instantiate(SplineWalker[0], new Vector3(SplineWalker[0].transform.position.x, SplineWalker[0].transform.position.y, SplineWalker[0].transform.position.z), Quaternion.identity);
                 clone.name = "Walker" + count++;
-                if (color_index == 1) m_Walker.Add(new Balls("red", count, clone));
-                if (color_index == 2) m_Walker.Add(new Balls("green", count, clone));
-                if (color_index == 3) m_Walker.Add(new Balls("blue", count, clone));
+                string color = "Red";
+                if (color_index == 2) color = "Green";
+                if (color_index == 3) color = "Blue";
+                m_Walker.Add(new Balls(color, count, clone));
                 //print("nbr GO : " + m_Walker.Count);
                 clone.SetActive(true);
                 deltatime = 0.5f + Time.fixedTime;

@@ -7,6 +7,7 @@ public class MouseLook : MonoBehaviour
 {
 
 	public GameObject prefab;
+	public Material[] material_color = new Material[3];
   
 	public void SubscribeEvents()
 	{
@@ -62,14 +63,15 @@ public class MouseLook : MonoBehaviour
 		{
 			try
 			{
-				int color_index = (int)Random.Range(1, 3);
-				string color = "red";
+				int color_index = (int)Random.Range(0, 3);
+				string color = "Red";
 				int index = GameManager.Instance.count++;
 				GameObject clone = Instantiate(prefab, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0)));
 				Debug.Log("roation y de Frog : " + transform.rotation.eulerAngles.y);
 				clone.name = "Walker" + index;
-				if (color_index == 2) color = "green";
-				if (color_index == 3) color = "blue";
+				if (color_index == 1) color = "Green";
+				if (color_index == 2) color = "Blue";
+				clone.GetComponent<Renderer>().material = material_color[color_index];
 				clone.GetComponent<SplineWalker>().color = color;
 				clone.GetComponent<SplineWalker>().index = index;
 				clone.GetComponent<SplineWalker>().enabled = false;
