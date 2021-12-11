@@ -73,7 +73,7 @@ public class MoveForward : MonoBehaviour
 			else
 			{
 				countdown = countdown - Time.deltaTime;
-				transform.Translate(0, 0, m_Speed * Time.deltaTime);
+				transform.Translate(0, 0, m_Speed * 4 * Time.deltaTime);
 				//m_Rigidbody.velocity = transform.forward * m_Speed;
 				//transform.position = transform.position + Vector3.Lerp(transform.position,transform.forward,m_Speed);
 				//Vector3 targetDir = target - transform.position;
@@ -91,10 +91,12 @@ public class MoveForward : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Walker")
+        if(collision.gameObject.tag == "Walker" && this.isActiveAndEnabled)
         {
+			float collision_progess = collision.gameObject.GetComponent<SplineWalker>().progress;
+			this.gameObject.GetComponent<SplineWalker>().progress = collision_progess - 0.001f;
+			Debug.Log("collision progress : " + collision_progess + ", progress of go collided : " + this.gameObject.GetComponent<SplineWalker>().progress);
 			this.gameObject.GetComponent<SplineWalker>().enabled = true;
-			this.gameObject.GetComponent<SplineWalker>().progress = collision.gameObject.GetComponent<SplineWalker>().progress + 0.001f;
 			this.gameObject.GetComponent<MoveForward>().enabled = false;
 		}
     }
