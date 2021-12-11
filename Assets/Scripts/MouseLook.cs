@@ -65,7 +65,7 @@ public class MouseLook : MonoBehaviour
 			{
 				int color_index = (int)Random.Range(0, 3);
 				string color = "Red";
-				int index = GameManager.Instance.count++;
+				int index = GameManager.Instance.launch_count++;
 				GameObject clone = Instantiate(prefab, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.Euler(new Vector3(0, transform.rotation.eulerAngles.y, 0)));
 				Debug.Log("roation y de Frog : " + transform.rotation.eulerAngles.y);
 				clone.name = "Walker" + index;
@@ -81,8 +81,8 @@ public class MouseLook : MonoBehaviour
 				//Destroy(clone.GetComponent<SplineWalker>());
 				//clone.AddComponent<MoveForward>();
 				
-				GameManager.Instance.m_Walker.Add(new Balls(color, index, clone));
-				Debug.Log("Color : " + GameManager.Instance.m_Walker[index].color + " for index : " + color_index);
+				GameManager.Instance.launched_Walker.Add(new Balls(color, index, clone));
+				Debug.Log("Color : " + GameManager.Instance.launched_Walker[index].color + " for index : " + color_index);
 				clone.SetActive(true);
 			}
 			catch

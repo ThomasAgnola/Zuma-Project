@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour, IEventHandler
     public AudioSource victorySound;
     public BezierSpline spline;
     public int count = 0;
+    public int launch_count = 0;
     public List<Balls> m_Walker = new List<Balls>();
+    public List<Balls> launched_Walker = new List<Balls>();
     public GameObject Spawn;
     private GAMESTATE m_State;
 
@@ -187,7 +189,7 @@ public class GameManager : MonoBehaviour, IEventHandler
             {
                 Victory();
             }*/
-            Debug.Log("State SpawnPos : " + Spawn.GetComponent<SpawnPos>().isFree);
+            //Debug.Log("State SpawnPos : " + Spawn.GetComponent<SpawnPos>().isFree);
             if (Spawn.GetComponent<SpawnPos>().isFree)
             {
                 int color_index = (int)Random.Range(1, 3);
@@ -196,6 +198,8 @@ public class GameManager : MonoBehaviour, IEventHandler
                 string color = "Red";
                 if (color_index == 2) color = "Green";
                 if (color_index == 3) color = "Blue";
+                clone.GetComponent<SplineWalker>().color = color;
+                clone.GetComponent<SplineWalker>().index = count;
                 m_Walker.Add(new Balls(color, count, clone));
                 clone.SetActive(true);
             }

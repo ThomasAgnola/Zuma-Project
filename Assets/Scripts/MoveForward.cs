@@ -47,7 +47,6 @@ public class MoveForward : MonoBehaviour
 	public int index;
 	float angleBetween = 0.0f;
 	Vector3 target;
-	bool debug_printed = false;
 
 	// Start is called before the first frame update
 	void Start()
@@ -78,7 +77,6 @@ public class MoveForward : MonoBehaviour
 				//transform.position = transform.position + Vector3.Lerp(transform.position,transform.forward,m_Speed);
 				//Vector3 targetDir = target - transform.position;
 				//angleBetween = Vector3.Angle(transform.forward, targetDir);
-				//if (debug_printed == false) { Debug.Log(target); Debug.Log(angleBetween); debug_printed = true; }
 				/*gameObject.transform.Translate(new Vector3(
 																Input.mousePosition.x,
 																Input.mousePosition.z,
@@ -93,9 +91,33 @@ public class MoveForward : MonoBehaviour
     {
         if(collision.gameObject.tag == "Walker" && this.isActiveAndEnabled)
         {
+			//int col_index = collision.gameObject.GetComponent<SplineWalker>().index;
+			int col_index = GameManager.Instance.m_Walker.IndexOf(new Balls( collision.gameObject.GetComponent<SplineWalker>().color, collision.gameObject.GetComponent<SplineWalker>().index, collision.gameObject), index);
+			Debug.Log("Collision color : " + collision.gameObject.GetComponent<SplineWalker>().color + " index : " + collision.gameObject.GetComponent<SplineWalker>().index);
+			Debug.Log("index of collision go : " + col_index);
+			float between_value = 0.001f;
 			float collision_progess = collision.gameObject.GetComponent<SplineWalker>().progress;
-			this.gameObject.GetComponent<SplineWalker>().progress = collision_progess - 0.001f;
-			Debug.Log("collision progress : " + collision_progess + ", progress of go collided : " + this.gameObject.GetComponent<SplineWalker>().progress);
+			if ((1 - GameManager.Instance.m_Walker[col_index - 1].go.GetComponent<SplineWalker>().progress) > (1 - GameManager.Instance.m_Walker[col_index + 1].go.GetComponent<SplineWalker>().progress))
+			{
+				between_value = -0.001f;
+				Debug.Log("Inserted behind collision");
+			}
+            else
+            {
+				Debug.Log("Inserted ahead of collision");
+            }
+			if (between_value < 0f)
+			{
+				GameManager.Instance.m_Walker.Insert(col_index - 1, new Balls(color, index, this.gameObject));
+				GameManager.Instance.launched_Walker.RemoveAt(index);
+			}
+			if (between_value > 0f)
+			{
+				GameManager.Instance.m_Walker.Insert(col_index + 1, new Balls(color, index, this.gameObject));
+				GameManager.Instance.launched_Walker.RemoveAt(index);
+			}
+			this.gameObject.GetComponent<SplineWalker>().progress = collision_progess + between_value;
+			//Debug.Log("collision progress : " + collision_progess + ", progress of go collided : " + this.gameObject.GetComponent<SplineWalker>().progress);
 			this.gameObject.GetComponent<SplineWalker>().enabled = true;
 			this.gameObject.GetComponent<MoveForward>().enabled = false;
 		}
