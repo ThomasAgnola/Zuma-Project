@@ -91,10 +91,12 @@ public class MoveForward : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Walker")
+        if(collision.gameObject.tag == "Walker" && this.isActiveAndEnabled)
         {
+			float collision_progess = collision.gameObject.GetComponent<SplineWalker>().progress;
+			this.gameObject.GetComponent<SplineWalker>().progress = collision_progess - 0.001f;
+			Debug.Log("collision progress : " + collision_progess + ", progress of go collided : " + this.gameObject.GetComponent<SplineWalker>().progress);
 			this.gameObject.GetComponent<SplineWalker>().enabled = true;
-			this.gameObject.GetComponent<SplineWalker>().progress = collision.gameObject.GetComponent<SplineWalker>().progress + 0.001f;
 			this.gameObject.GetComponent<MoveForward>().enabled = false;
 		}
     }

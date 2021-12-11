@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     public BezierSpline spline;
     public int count = 0;
     public List<Balls> m_Walker = new List<Balls>();
+    public GameObject Spawn;
     private GAMESTATE m_State;
 
     public bool IsPlaying { get { return m_State == GAMESTATE.play; } }
@@ -176,7 +177,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (IsPlaying)
         {
@@ -186,9 +187,19 @@ public class GameManager : MonoBehaviour, IEventHandler
             {
                 Victory();
             }*/
-
-            
-            if ((deltatime - Time.fixedTime) <= 0)
+            Debug.Log("State SpawnPos : " + Spawn.GetComponent<SpawnPos>().isFree);
+            if (Spawn.GetComponent<SpawnPos>().isFree)
+            {
+                int color_index = (int)Random.Range(1, 3);
+                GameObject clone = Instantiate(SplineWalker[0], new Vector3(SplineWalker[0].transform.position.x, SplineWalker[0].transform.position.y, SplineWalker[0].transform.position.z), Quaternion.identity);
+                clone.name = "Walker" + count++;
+                string color = "Red";
+                if (color_index == 2) color = "Green";
+                if (color_index == 3) color = "Blue";
+                m_Walker.Add(new Balls(color, count, clone));
+                clone.SetActive(true);
+            }
+            /*if ((deltatime - Time.fixedTime) <= 0)
             {
                 int color_index = (int)Random.Range(1, 3);
                 //GameObject instance = new GameObject("Walker" + m_CountDownStartValue);
@@ -201,7 +212,7 @@ public class GameManager : MonoBehaviour, IEventHandler
                 //print("nbr GO : " + m_Walker.Count);
                 clone.SetActive(true);
                 deltatime = 0.5f + Time.fixedTime;
-            }
+            }*/
 
         }
         
