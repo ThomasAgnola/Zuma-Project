@@ -313,7 +313,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 0}
-  duration: 5
+  color: 
+  index: 0
+  duration: 10
   progress: 0
   lookForward: 1
 --- !u!114 &9173112595959362732
@@ -330,3 +332,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Speed: 2
   countdown: 10
+  color: 
+  index: 0
