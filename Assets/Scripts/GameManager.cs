@@ -202,6 +202,7 @@ public class GameManager : MonoBehaviour, IEventHandler
                 clone.GetComponent<SplineWalker>().index = count;
                 m_Walker.Add(new Balls(color, count, clone));
                 clone.SetActive(true);
+                Spawn.GetComponent<SpawnPos>().isFree = false;
             }
             /*if ((deltatime - Time.fixedTime) <= 0)
             {

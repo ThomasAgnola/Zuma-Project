@@ -315,7 +315,7 @@ MonoBehaviour:
   spline: {fileID: 0}
   color: 
   index: 0
-  duration: 10
+  duration: 40
   progress: 0
   lookForward: 1
 --- !u!114 &9173112595959362732

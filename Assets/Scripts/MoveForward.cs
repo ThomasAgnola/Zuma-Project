@@ -92,7 +92,17 @@ public class MoveForward : MonoBehaviour
         if(collision.gameObject.tag == "Walker" && this.isActiveAndEnabled)
         {
 			//int col_index = collision.gameObject.GetComponent<SplineWalker>().index;
-			int col_index = GameManager.Instance.m_Walker.IndexOf(new Balls( collision.gameObject.GetComponent<SplineWalker>().color, collision.gameObject.GetComponent<SplineWalker>().index, collision.gameObject), index);
+			int col_index = 0;
+			for(int i = 0; i < GameManager.Instance.m_Walker.Count; i++)
+            {
+				if(GameManager.Instance.m_Walker[i].go.name == collision.gameObject.name)
+				{
+					col_index = i;
+					break;
+				}
+				
+            }
+			//int col_index = GameManager.Instance.m_Walker.IndexOf(new Balls( collision.gameObject.GetComponent<SplineWalker>().color, collision.gameObject.GetComponent<SplineWalker>().index, collision.gameObject));
 			Debug.Log("Collision color : " + collision.gameObject.GetComponent<SplineWalker>().color + " index : " + collision.gameObject.GetComponent<SplineWalker>().index);
 			Debug.Log("index of collision go : " + col_index);
 			float between_value = 0.001f;
@@ -109,12 +119,27 @@ public class MoveForward : MonoBehaviour
 			if (between_value < 0f)
 			{
 				GameManager.Instance.m_Walker.Insert(col_index - 1, new Balls(color, index, this.gameObject));
-				GameManager.Instance.launched_Walker.RemoveAt(index);
+				for (int i = 0; i < GameManager.Instance.launched_Walker.Count; i++)
+				{
+					if (GameManager.Instance.launched_Walker[i].go.name == this.gameObject.name)
+					{
+						GameManager.Instance.launched_Walker.RemoveAt(i);
+						break;
+					}
+				}
+				
 			}
 			if (between_value > 0f)
 			{
 				GameManager.Instance.m_Walker.Insert(col_index + 1, new Balls(color, index, this.gameObject));
-				GameManager.Instance.launched_Walker.RemoveAt(index);
+				for (int i = 0; i < GameManager.Instance.launched_Walker.Count; i++)
+				{
+					if (GameManager.Instance.launched_Walker[i].go.name == this.gameObject.name)
+					{
+						GameManager.Instance.launched_Walker.RemoveAt(i);
+						break;
+					}
+				}
 			}
 			this.gameObject.GetComponent<SplineWalker>().progress = collision_progess + between_value;
 			//Debug.Log("collision progress : " + collision_progess + ", progress of go collided : " + this.gameObject.GetComponent<SplineWalker>().progress);
