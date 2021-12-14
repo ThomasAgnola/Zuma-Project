@@ -93,7 +93,7 @@ public class MoveForward : MonoBehaviour
         {
 			//int col_index = collision.gameObject.GetComponent<SplineWalker>().index;
 			int col_index = 0;
-			for(int i = 0; i < GameManager.Instance.m_Walker.Count; i++)
+			for(int i = 1; i < (GameManager.Instance.m_Walker.Count - 1); i++)
             {
 				if(GameManager.Instance.m_Walker[i].go.name == collision.gameObject.name)
 				{

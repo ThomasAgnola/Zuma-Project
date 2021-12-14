@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     public int launch_count = 0;
     public List<Balls> m_Walker = new List<Balls>();
     public List<Balls> launched_Walker = new List<Balls>();
+    public Material[] material_color = new Material[3];
     public GameObject Spawn;
     private GAMESTATE m_State;
 
@@ -192,12 +193,13 @@ public class GameManager : MonoBehaviour, IEventHandler
             //Debug.Log("State SpawnPos : " + Spawn.GetComponent<SpawnPos>().isFree);
             if (Spawn.GetComponent<SpawnPos>().isFree)
             {
-                int color_index = (int)Random.Range(1, 3);
+                int color_index = (int)Random.Range(0, 3);
                 GameObject clone = Instantiate(SplineWalker[0], new Vector3(SplineWalker[0].transform.position.x, SplineWalker[0].transform.position.y, SplineWalker[0].transform.position.z), Quaternion.identity);
                 clone.name = "Walker" + count++;
                 string color = "Red";
-                if (color_index == 2) color = "Green";
-                if (color_index == 3) color = "Blue";
+                if (color_index == 1) color = "Green";
+                if (color_index == 2) color = "Blue"; 
+                clone.GetComponent<Renderer>().material = material_color[color_index];
                 clone.GetComponent<SplineWalker>().color = color;
                 clone.GetComponent<SplineWalker>().index = count;
                 m_Walker.Add(new Balls(color, count, clone));

@@ -477,6 +477,11 @@ MonoBehaviour:
   victorySound: {fileID: 0}
   spline: {fileID: 215470131}
   count: 0
+  launch_count: 0
+  material_color:
+  - {fileID: 2100000, guid: 2c142e2bbb2a2da498202caba75108c2, type: 2}
+  - {fileID: 2100000, guid: 9641e8c8da0f87749815c9468efe6219, type: 2}
+  - {fileID: 2100000, guid: 6d9125ba71e4cde42beb2a3a6bf8f313, type: 2}
   Spawn: {fileID: 269162140}
   m_CountDownStartValue: 50
   SplineWalker:
