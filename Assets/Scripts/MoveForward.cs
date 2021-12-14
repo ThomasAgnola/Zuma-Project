@@ -95,11 +95,18 @@ public class MoveForward : MonoBehaviour
 			int col_index = 0;
 			for(int i = 1; i < (GameManager.Instance.m_Walker.Count - 1); i++)
             {
-				if(GameManager.Instance.m_Walker[i].go.name == collision.gameObject.name)
-				{
-					col_index = i;
-					break;
-				}
+                try
+                {
+					if(GameManager.Instance.m_Walker[i].go.name == collision.gameObject.name)
+					{
+						col_index = i;
+						break;
+					}
+                }
+                catch
+                {
+					Debug.Log("i index out of bound : " + i);
+                }
 				
             }
 			//int col_index = GameManager.Instance.m_Walker.IndexOf(new Balls( collision.gameObject.GetComponent<SplineWalker>().color, collision.gameObject.GetComponent<SplineWalker>().index, collision.gameObject));
