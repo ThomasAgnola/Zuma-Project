@@ -63,6 +63,10 @@ public class GameStatisticsChangedEvent : SDD.Events.Event
 	public int eScore { get; set; }
 	public float eCountDownValue { get; set; }
 }
+public class BallChangedEvent : SDD.Events.Event
+{
+	public string eColor { get; set; }
+}
 #endregion
 
 #region LevelManager Events
