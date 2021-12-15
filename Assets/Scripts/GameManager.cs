@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour, IEventHandler
     public void SubscribeEvents()
     {
         EventManager.Instance.AddListener<PlayButtonClickedEvent>(PlayButtonClicked);
-        EventManager.Instance.AddListener<AsteroidExplosionEvent>(AsteroidExplosion);
         EventManager.Instance.AddListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
         EventManager.Instance.AddListener<HighScoreButtonClickedEvent>(HighScoreButtonClicked);
         EventManager.Instance.AddListener<EscapeButtonClickedEvent>(EscapeButtonClicked);
@@ -53,7 +52,6 @@ public class GameManager : MonoBehaviour, IEventHandler
     public void UnsubscribeEvents()
     {
         EventManager.Instance.RemoveListener<PlayButtonClickedEvent>(PlayButtonClicked);
-        EventManager.Instance.RemoveListener<AsteroidExplosionEvent>(AsteroidExplosion);
         EventManager.Instance.RemoveListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
         EventManager.Instance.RemoveListener<HighScoreButtonClickedEvent>(HighScoreButtonClicked);
         EventManager.Instance.RemoveListener<EscapeButtonClickedEvent>(EscapeButtonClicked);
@@ -146,11 +144,6 @@ public class GameManager : MonoBehaviour, IEventHandler
     {
         m_State = GAMESTATE.credit;
         EventManager.Instance.Raise(new GameCreditEvent());
-    }
-    void AsteroidExplosion(AsteroidExplosionEvent e)
-    {
-        if (!IsPlaying) return;
-        IncrementScore(5);
     }
     #endregion
 

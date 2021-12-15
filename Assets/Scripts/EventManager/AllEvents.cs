@@ -75,9 +75,3 @@ public class LevelHasBeenInitializedEvent : SDD.Events.Event
 	public Vector3 ePlayerSpawnPos;
 }
 #endregion
-
-#region Asteroid event
-public class AsteroidExplosionEvent : SDD.Events.Event
-{
-}
-#endregion
