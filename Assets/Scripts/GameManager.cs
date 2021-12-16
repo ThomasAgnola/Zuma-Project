@@ -36,7 +36,8 @@ public class GameManager : MonoBehaviour, IEventHandler
     [SerializeField] float m_CountDownStartValue;
     float m_CountDown;
 
-    [SerializeField] GameObject[] SplineWalker;
+    [SerializeField] bool ColorBall = false;
+    [SerializeField] GameObject[] SplineWalker = new GameObject[3];
 
     public void SubscribeEvents()
     {
@@ -187,12 +188,12 @@ public class GameManager : MonoBehaviour, IEventHandler
             if (Spawn.GetComponent<SpawnPos>().isFree)
             {
                 int color_index = (int)Random.Range(0, 3);
-                GameObject clone = Instantiate(SplineWalker[0], new Vector3(SplineWalker[0].transform.position.x, SplineWalker[0].transform.position.y, SplineWalker[0].transform.position.z), Quaternion.identity);
+                GameObject clone = Instantiate(SplineWalker[color_index], new Vector3(SplineWalker[0].transform.position.x, SplineWalker[0].transform.position.y, SplineWalker[0].transform.position.z), Quaternion.identity);
                 clone.name = "Walker" + count++;
                 string color = "Red";
                 if (color_index == 1) color = "Green";
                 if (color_index == 2) color = "Blue"; 
-                clone.GetComponent<Renderer>().material = material_color[color_index];
+                if (ColorBall) clone.GetComponent<Renderer>().material = material_color[color_index];
                 clone.GetComponent<SplineWalker>().color = color;
                 clone.GetComponent<SplineWalker>().index = count;
                 m_Walker.Add(new Balls(color, count, clone));
