@@ -29,4 +29,9 @@ public class SpawnPos : MonoBehaviour
     {
         isFree = false;
     }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        isFree = false;
+    }
 }

@@ -15,7 +15,10 @@ public class GameManager : MonoBehaviour, IEventHandler
     public AudioSource victorySound;
     public BezierSpline spline;
     public int count = 0;
+    public int launch_count = 0;
     public List<Balls> m_Walker = new List<Balls>();
+    public List<Balls> launched_Walker = new List<Balls>();
+    public Material[] material_color = new Material[3];
     public GameObject Spawn;
     private GAMESTATE m_State;
 
@@ -33,12 +36,12 @@ public class GameManager : MonoBehaviour, IEventHandler
     [SerializeField] float m_CountDownStartValue;
     float m_CountDown;
 
-    [SerializeField] GameObject[] SplineWalker;
+    [SerializeField] bool ColorBall = false;
+    [SerializeField] GameObject[] SplineWalker = new GameObject[3];
 
     public void SubscribeEvents()
     {
         EventManager.Instance.AddListener<PlayButtonClickedEvent>(PlayButtonClicked);
-        EventManager.Instance.AddListener<AsteroidExplosionEvent>(AsteroidExplosion);
         EventManager.Instance.AddListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
         EventManager.Instance.AddListener<HighScoreButtonClickedEvent>(HighScoreButtonClicked);
         EventManager.Instance.AddListener<EscapeButtonClickedEvent>(EscapeButtonClicked);
@@ -50,7 +53,6 @@ public class GameManager : MonoBehaviour, IEventHandler
     public void UnsubscribeEvents()
     {
         EventManager.Instance.RemoveListener<PlayButtonClickedEvent>(PlayButtonClicked);
-        EventManager.Instance.RemoveListener<AsteroidExplosionEvent>(AsteroidExplosion);
         EventManager.Instance.RemoveListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
         EventManager.Instance.RemoveListener<HighScoreButtonClickedEvent>(HighScoreButtonClicked);
         EventManager.Instance.RemoveListener<EscapeButtonClickedEvent>(EscapeButtonClicked);
@@ -144,11 +146,6 @@ public class GameManager : MonoBehaviour, IEventHandler
         m_State = GAMESTATE.credit;
         EventManager.Instance.Raise(new GameCreditEvent());
     }
-    void AsteroidExplosion(AsteroidExplosionEvent e)
-    {
-        if (!IsPlaying) return;
-        IncrementScore(5);
-    }
     #endregion
 
 
@@ -187,17 +184,21 @@ public class GameManager : MonoBehaviour, IEventHandler
             {
                 Victory();
             }*/
-            Debug.Log("State SpawnPos : " + Spawn.GetComponent<SpawnPos>().isFree);
+            //Debug.Log("State SpawnPos : " + Spawn.GetComponent<SpawnPos>().isFree);
             if (Spawn.GetComponent<SpawnPos>().isFree)
             {
-                int color_index = (int)Random.Range(1, 3);
-                GameObject clone = Instantiate(SplineWalker[0], new Vector3(SplineWalker[0].transform.position.x, SplineWalker[0].transform.position.y, SplineWalker[0].transform.position.z), Quaternion.identity);
+                int color_index = (int)Random.Range(0, 3);
+                GameObject clone = Instantiate(SplineWalker[color_index], new Vector3(SplineWalker[0].transform.position.x, SplineWalker[0].transform.position.y, SplineWalker[0].transform.position.z), Quaternion.identity);
                 clone.name = "Walker" + count++;
                 string color = "Red";
-                if (color_index == 2) color = "Green";
-                if (color_index == 3) color = "Blue";
+                if (color_index == 1) color = "Green";
+                if (color_index == 2) color = "Blue"; 
+                if (ColorBall) clone.GetComponent<Renderer>().material = material_color[color_index];
+                clone.GetComponent<SplineWalker>().color = color;
+                clone.GetComponent<SplineWalker>().index = count;
                 m_Walker.Add(new Balls(color, count, clone));
                 clone.SetActive(true);
+                Spawn.GetComponent<SpawnPos>().isFree = false;
             }
             /*if ((deltatime - Time.fixedTime) <= 0)
             {
